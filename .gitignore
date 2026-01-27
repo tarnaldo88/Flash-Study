@@ -1,0 +1,98 @@
+##################################
+# OS / Editor junk
+##################################
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+*.swp
+*.swo
+*.bak
+*.tmp
+*.orig
+
+##################################
+# User-specific files
+##################################
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+
+##################################
+# .NET / MSBuild
+##################################
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+
+##################################
+# NuGet
+##################################
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+
+##################################
+# Rider
+##################################
+.idea/
+*.sln.iml
+
+##################################
+# MAUI / Xamarin
+##################################
+*.apk
+*.aab
+*.ipa
+*.app
+*.xcarchive
+*.dSYM
+*.dSYM.zip
+
+##################################
+# Android
+##################################
+**/android/.gradle/
+**/android/local.properties
+**/android/captures/
+**/android/.idea/
+**/android/*.iml
+
+##################################
+# iOS / macOS
+##################################
+**/bin/iPhoneSimulator/
+**/bin/iPhone/
+**/bin/Debug/
+**/bin/Release/
+**/*.xcworkspace
+**/*.xcodeproj/project.xcworkspace/
+**/*.xcuserstate
+**/*.xcuserdatad/
+**/Pods/
+
+##################################
+# Windows
+##################################
+*.exe
+*.msi
+*.appx
+*.appxbundle
+*.pdb
+
+##################################
+# Logs & diagnostics
+##################################
+*.log
+crashlytics-build.properties
+
+##################################
+# Secrets / local config
+##################################
+appsettings.Development.json
+appsettings.Local.json
