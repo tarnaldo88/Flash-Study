@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="FlashStudy.Views.DeckDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="{Binding Deck.Name}">
+
+    <VerticalStackLayout Padding="16" Spacing="12">
+
+        <HorizontalStackLayout Spacing="8">
+            <Button Text="Add Card" Command="{Binding AddCardCommand}" />
+            <Button Text="Study" Command="{Binding StudyCommand}" />
+        </HorizontalStackLayout>
+
+        <CollectionView ItemsSource="{Binding Cards}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="*,Auto" Padding="8">
+                        <Label Text="{Binding Front}" LineBreakMode="TailTruncation" />
+                        <HorizontalStackLayout Grid.Column="1" Spacing="8">
+                            <Button Text="Edit"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditCardCommand}"
+                                    CommandParameter="{Binding .}" />
+                            <Button Text="Delete"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteCardCommand}"
+                                    CommandParameter="{Binding .}" />
+                        </HorizontalStackLayout>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </VerticalStackLayout>
+</ContentPage>
