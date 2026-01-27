@@ -13,7 +13,7 @@
         </HorizontalStackLayout>
 
         <CollectionView ItemsSource="{Binding Items}">
-            <CollectionView.ItemTemplace>
+            <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid ColumnDefinitions="*,Auto" Padding="8">
                         <Label Text="{Binding Name}" VerticalOptions="Center" />
@@ -28,7 +28,7 @@
                         </HorizontalStackLayout>
                     </Grid>
                 </DataTemplate>
-            </CollectionView.ItemTemplace>
+            </CollectionView.ItemTemplate>
         </CollectionView>
     </VerticalStackLayout>
 </ContentPage>

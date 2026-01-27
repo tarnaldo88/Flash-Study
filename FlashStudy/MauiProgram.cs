@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using FlashStudy.Data;
 using FlashStudy.Data.Repositories;
-// using FlashStudy.ViewModels;
-// using FlashStudy.Views;
+using FlashStudy.ViewModels;
+using FlashStudy.Views;
 
 namespace FlashStudy;
 
@@ -29,15 +29,15 @@ public static class MauiProgram
         builder.Services.AddSingleton<DeckRepository>();
         builder.Services.AddSingleton<CardRepository>();
 
-        // builder.Services.AddTransient<DeckListViewModel>();
-        // builder.Services.AddTransient<DeckDetailViewModel>();
-        // builder.Services.AddTransient<EditCardViewModel>();
-        // builder.Services.AddTransient<StudyViewModel>();
+        builder.Services.AddTransient<DeckListViewModel>();
+        builder.Services.AddTransient<DeckDetailViewModel>();
+        builder.Services.AddTransient<EditCardViewModel>();
+        builder.Services.AddTransient<StudyViewModel>();
 
-        // builder.Services.AddTransient<DeckListPage>();
-        // builder.Services.AddTransient<DeckDetailPage>();
-        // builder.Services.AddTransient<EditCardPage>();
-        // builder.Services.AddTransient<StudyPage>();
+        builder.Services.AddTransient<DeckListPage>();
+        builder.Services.AddTransient<DeckDetailPage>();
+        builder.Services.AddTransient<EditCardPage>();
+        builder.Services.AddTransient<StudyPage>();
 
 		return builder.Build();
 	}
