@@ -13,8 +13,11 @@ public partial class DeckDetailViewModel : ObservableObject
     private readonly DeckRepository _decks;
     private readonly CardRepository _cards;
 
-    [ObservableProperty] private int deckId;
-    [ObservableProperty] private Deck? deck;
+    [ObservableProperty]
+    public partial int DeckId { get; set; }
+
+    [ObservableProperty]
+    public partial Deck? Deck { get; set; }
 
     public ObservableCollection<Card> Cards { get; } = new();
 
@@ -62,6 +65,29 @@ public partial class DeckDetailViewModel : ObservableObject
         if (!ok) return;
 
         await _cards.DeleteAsync(card);
+        await LoadAsync();
+    }
+
+    [RelayCommand]
+    public async Task DeleteDeckAsync(Deck? deck)
+    {
+        if(deck is null) return;
+
+        var ok = await Shell.Current.DisplayAlertAsync(
+            "Delete deck?",
+            $"Delete `{deck.Name}` and all its cards?",
+            "Delete",
+            "Cancel"
+        );
+
+        if (!ok) return;
+
+        // 1) delete cards
+        await _cards.DeleteByDeckIdAsync(deck.Id);
+
+        // 2) delete deck
+        await _decks.DeleteAsync(deck);
+
         await LoadAsync();
     }
 }

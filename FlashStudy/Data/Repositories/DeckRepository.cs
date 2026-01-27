@@ -5,10 +5,10 @@ namespace FlashStudy.Data.Repositories;
 
 public sealed class DeckRepository
 {
-    private readonly SQLiteAsyncConnection _db;
+    private readonly SQLiteAsyncConnection _db;   
 
-    public DeckRepository(AppDatabase database)
-        => _db = database.Connection;
+    public DeckRepository(AppDatabase database) => _db = database.Connection;   
+        
 
     public Task<List<Deck>> GetAllAsync()
         => _db.Table<Deck>().OrderByDescending(d => d.UpdatedAt).ToListAsync();
@@ -39,8 +39,7 @@ public sealed class DeckRepository
         return _db.UpdateAsync(deck);
     }
 
-    public Task DeleteAsync(Deck deck)
-        => _db.DeleteAsync(deck);
+    public async Task DeleteAsync(Deck deck) => await _db.DeleteAsync(deck);        
 
     public Task DeleteByIdAsync(int id)
         => _db.DeleteAsync<Deck>(id);
