@@ -23,7 +23,7 @@
             </HorizontalStackLayout>
         </Grid>
 
-        <Frame Padding="16">
+        <Frame Padding="36">
             <Label Text="{Binding DisplayText}" FontSize="20" />
         </Frame>
 
