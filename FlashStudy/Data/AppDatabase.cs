@@ -16,6 +16,8 @@ namespace FlashStudy.Data
         {
             await _db.CreateTableAsync<Deck>();
             await _db.CreateTableAsync<Card>();
+            await SeedData.EnsureSystemDesignDeckAsync(_db);
+            await SeedData.EnsureSoftwareEngineerDeckAsync(_db);
         }
 
         public SQLiteAsyncConnection Connection => _db;

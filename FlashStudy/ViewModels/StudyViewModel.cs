@@ -9,6 +9,7 @@ namespace FlashStudy.ViewModels;
 public partial class StudyViewModel : ObservableObject
 {
     private readonly CardRepository _cards;
+    private readonly DeckRepository _decks;
 
     private List<Card> _list = new();
 
@@ -16,16 +17,25 @@ public partial class StudyViewModel : ObservableObject
     [ObservableProperty] private int index;
     [ObservableProperty] private bool isFlipped;
 
+    [ObservableProperty]
+    public partial string DeckName { get; set; } = "";
+
     public string DisplayText
         => _list.Count == 0 ? "No cards in this deck." :
            IsFlipped ? _list[Index].Back : _list[Index].Front;
 
-    public StudyViewModel(CardRepository cards)
-        => _cards = cards;
+    public StudyViewModel(CardRepository cards, DeckRepository decks)
+    {
+        _cards = cards;
+        _decks = decks;
+    }
 
     [RelayCommand]
     public async Task LoadAsync()
     {
+        var deck = await _decks.GetByIdAsync(DeckId);
+        DeckName = deck?.Name ?? "";
+
         _list = await _cards.GetByDeckIdAsync(DeckId);
         Index = 0;
         IsFlipped = false;

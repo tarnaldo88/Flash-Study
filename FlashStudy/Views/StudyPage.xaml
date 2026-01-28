@@ -6,6 +6,23 @@
     Title="Study">
 
     <VerticalStackLayout Padding="16" Spacing="12">
+        <Grid ColumnDefinitions="*,Auto,*">
+            <Label Grid.Column="1"
+                   Text="{Binding DeckName}"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center" />
+            <HorizontalStackLayout Grid.Column="2" Spacing="6" HorizontalOptions="End">
+                <Label Text="Flash Study" VerticalOptions="Center" />
+                <Image Source="flashstudylogo.png"
+                       HeightRequest="28"
+                       WidthRequest="28"
+                       Aspect="AspectFit"
+                       VerticalOptions="Center" />
+            </HorizontalStackLayout>
+        </Grid>
+
         <Frame Padding="16">
             <Label Text="{Binding DisplayText}" FontSize="20" />
         </Frame>

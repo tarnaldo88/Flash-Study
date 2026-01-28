@@ -10,6 +10,7 @@ namespace FlashStudy.ViewModels;
 public partial class EditCardViewModel : ObservableObject
 {
     private readonly CardRepository _cards;
+    private readonly DeckRepository _decks;
 
     [ObservableProperty] private int deckId;
     [ObservableProperty] private int cardId;
@@ -17,25 +18,42 @@ public partial class EditCardViewModel : ObservableObject
     [ObservableProperty] private string front = "";
     [ObservableProperty] private string back = "";
 
-    public EditCardViewModel(CardRepository cards)
-        => _cards = cards;
+    [ObservableProperty]
+    public partial string DeckName { get; set; } = "";
+
+    public EditCardViewModel(CardRepository cards, DeckRepository decks)
+    {
+        _cards = cards;
+        _decks = decks;
+    }
 
     [RelayCommand]
     public async Task LoadAsync()
     {
-        if (CardId <= 0)
+        if (CardId > 0)
+        {
+            var card = await _cards.GetByIdAsync(CardId);
+            if (card is null) return;
+
+            Front = card.Front;
+            Back = card.Back;
+            DeckId = card.DeckId;
+        }
+        else
         {
             Front = "";
             Back = "";
-            return;
         }
 
-        var card = await _cards.GetByIdAsync(CardId);
-        if (card is null) return;
-
-        Front = card.Front;
-        Back = card.Back;
-        DeckId = card.DeckId;
+        if (DeckId > 0)
+        {
+            var deck = await _decks.GetByIdAsync(DeckId);
+            DeckName = deck?.Name ?? "";
+        }
+        else
+        {
+            DeckName = "";
+        }
     }
 
     [RelayCommand]

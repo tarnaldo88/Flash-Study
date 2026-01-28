@@ -6,6 +6,17 @@
     Title="Decks">
 
     <VerticalStackLayout Padding="16" Spacing="12">
+        <VerticalStackLayout HorizontalOptions="Center" Spacing="6">
+            <Image Source="flashstudylogo.png"
+                   HeightRequest="120"
+                   WidthRequest="120"
+                   Aspect="AspectFit"
+                   HorizontalOptions="Center" />
+            <Label Text="Flash Study"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+        </VerticalStackLayout>
 
         <HorizontalStackLayout Spacing="8">
             <Entry Placeholder="New deck name" Text="{Binding NewDeckName}" HorizontalOptions="FillAndExpand" />
