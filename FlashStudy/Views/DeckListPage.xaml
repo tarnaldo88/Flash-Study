@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="Decks">
 
-    <VerticalStackLayout Padding="16" Spacing="12">
+    <VerticalStackLayout Padding="24" Spacing="12">
         <VerticalStackLayout HorizontalOptions="Center" Spacing="6">
             <Image Source="flashstudylogo.png"
                    HeightRequest="120"
@@ -19,7 +19,10 @@
         </VerticalStackLayout>
 
         <HorizontalStackLayout Spacing="8">
-            <Entry Placeholder="New deck name" Text="{Binding NewDeckName}" HorizontalOptions="FillAndExpand" />
+            <Entry Placeholder="New deck name"
+                   Text="{Binding NewDeckName}"
+                   HorizontalOptions="FillAndExpand"
+                   HorizontalTextAlignment="Center" />
             <Button Text="Add" Command="{Binding AddDeckCommand}" />
         </HorizontalStackLayout>
 
