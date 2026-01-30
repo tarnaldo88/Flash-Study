@@ -57,9 +57,7 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 	
-	<ItemGroup>
-		<MauiXaml Include="Platforms\Windows\App.xaml" />
-	</ItemGroup>
+	<!-- Platforms/Windows/App.xaml is already included by default item globs. -->
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
