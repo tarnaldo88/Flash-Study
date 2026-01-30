@@ -13,7 +13,8 @@ public partial class DeckListViewModel : ObservableObject
 
     public ObservableCollection<Deck> Items { get; } = new();
 
-    [ObservableProperty] private string newDeckName = "";
+    [ObservableProperty]
+    public partial string NewDeckName { get; set; } = "";
 
     public DeckListViewModel(DeckRepository decks)
         => _decks = decks;
