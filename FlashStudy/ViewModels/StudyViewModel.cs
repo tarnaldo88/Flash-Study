@@ -13,9 +13,14 @@ public partial class StudyViewModel : ObservableObject
 
     private List<Card> _list = new();
 
-    [ObservableProperty] private int deckId;
-    [ObservableProperty] private int index;
-    [ObservableProperty] private bool isFlipped;
+    [ObservableProperty]
+    public partial int DeckId { get; set; }
+
+    [ObservableProperty]
+    public partial int Index { get; set; }
+
+    [ObservableProperty]
+    public partial bool IsFlipped { get; set; }
 
     [ObservableProperty]
     public partial string DeckName { get; set; } = "";
