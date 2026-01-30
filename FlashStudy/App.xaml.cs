@@ -11,9 +11,17 @@ public partial class App : Application
 		_db = db;
 	}
 
-	protected override Window CreateWindow(IActivationState? activationState)
+	protected override Window CreateWindow(IActivationState? activationState )
 	{
-		return new Window(new AppShell());
+		var window = new Window(new AppShell())
+		{
+			Width = 1000,
+			Height = 700,
+			MinimumHeight = 600,
+			MinimumWidth = 800
+		};
+
+		return window;
 	}
 
 	protected override async void OnStart()
