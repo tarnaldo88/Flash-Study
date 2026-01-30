@@ -12,11 +12,17 @@ public partial class EditCardViewModel : ObservableObject
     private readonly CardRepository _cards;
     private readonly DeckRepository _decks;
 
-    [ObservableProperty] private int deckId;
-    [ObservableProperty] private int cardId;
+    [ObservableProperty]
+    public partial int DeckId { get; set; }
 
-    [ObservableProperty] private string front = "";
-    [ObservableProperty] private string back = "";
+    [ObservableProperty]
+    public partial int CardId { get; set; }
+
+    [ObservableProperty]
+    public partial string Front { get; set; } = "";
+
+    [ObservableProperty]
+    public partial string Back { get; set; } = "";
 
     [ObservableProperty]
     public partial string DeckName { get; set; } = "";
