@@ -16,7 +16,7 @@ public partial class App : MauiWinUIApplication
 	/// </summary>
 	public App()
 	{
-		this.InitializeComponent();
+		// App.xaml has no resources, so no XAML init is required here.
 	}
 
 	protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
