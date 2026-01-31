@@ -11,11 +11,7 @@
                    HeightRequest="120"
                    WidthRequest="120"
                    Aspect="AspectFit"
-                   HorizontalOptions="Center" />
-            <Label Text="Flash Study"
-                   FontSize="24"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center" />
+                   HorizontalOptions="Center" />            
         </VerticalStackLayout>
 
         <HorizontalStackLayout Spacing="8">
