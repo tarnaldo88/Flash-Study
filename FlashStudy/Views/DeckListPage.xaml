@@ -18,8 +18,7 @@
             <Entry Placeholder="New deck name"
                    Text="{Binding NewDeckName}"
                    HorizontalOptions="FillAndExpand"
-                   HorizontalTextAlignment="Center" />
-            <Label Text="{Binding DeckCount, StringFormat='Questions: {0}'}" />
+                   HorizontalTextAlignment="Center" />            
             <Button Text="Add" Command="{Binding AddDeckCommand}" />
         </HorizontalStackLayout>
 
