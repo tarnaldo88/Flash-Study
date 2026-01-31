@@ -10,6 +10,7 @@ namespace FlashStudy.ViewModels;
 public partial class DeckListViewModel : ObservableObject
 {
     private readonly DeckRepository _decks;
+    private readonly CardRepository _cards;
 
     public ObservableCollection<Deck> Items { get; } = new();
 
@@ -19,15 +20,22 @@ public partial class DeckListViewModel : ObservableObject
     [ObservableProperty]
     public partial string NewDeckName { get; set; } = "";
 
-    public DeckListViewModel(DeckRepository decks)
-        => _decks = decks;
+    public DeckListViewModel(DeckRepository decks, CardRepository cards)
+    {
+        _decks = decks;
+        _cards = cards;
+    }
 
     [RelayCommand]
     public async Task LoadAsync()
     {
         Items.Clear();
         var all = await _decks.GetAllAsync();
-        foreach (var d in all) Items.Add(d);
+        foreach (var d in all)
+        {
+            d.Count = await _cards.CountByDeckIdAsync(d.Id);
+            Items.Add(d);
+        }
     }
 
     [RelayCommand]

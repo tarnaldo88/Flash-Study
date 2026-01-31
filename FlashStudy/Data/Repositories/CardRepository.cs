@@ -13,6 +13,9 @@ public sealed class CardRepository
     public Task<List<Card>> GetByDeckIdAsync(int deckId)
         => _db.Table<Card>().Where(c => c.DeckId == deckId).OrderBy(c => c.Id).ToListAsync();
 
+    public Task<int> CountByDeckIdAsync(int deckId)
+        => _db.Table<Card>().Where(c => c.DeckId == deckId).CountAsync();
+
     public async Task<Card?> GetByIdAsync(int id)
     {
         var card = await _db.Table<Card>()
