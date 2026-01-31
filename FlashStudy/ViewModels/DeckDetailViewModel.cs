@@ -14,6 +14,9 @@ public partial class DeckDetailViewModel : ObservableObject
     private readonly CardRepository _cards;
 
     [ObservableProperty]
+    public partial int DeckCount { get; set; } = default;
+
+    [ObservableProperty]
     public partial int DeckId { get; set; }
 
     [ObservableProperty]
@@ -40,6 +43,8 @@ public partial class DeckDetailViewModel : ObservableObject
         Cards.Clear();
         var list = await _cards.GetByDeckIdAsync(DeckId);
         foreach (var c in list) Cards.Add(c);
+
+        DeckCount = Cards.Count;
     }
 
     [RelayCommand]
