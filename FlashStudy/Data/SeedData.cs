@@ -5,6 +5,34 @@ namespace FlashStudy.Data;
 
 public static class SeedData
 {
+    public static async Task EnsureGoDeckAsync(SQLiteAsyncConnection db)
+    {
+        var existing = await db.Table<Deck>()
+            .Where(d => d.Name == "System Design")
+            .FirstOrDefaultAsync();
+
+        if (existing is not null)
+        {
+            return;
+        }
+
+        var now = DateTime.UtcNow;
+        var deck = new Deck
+        {
+            Name = "System Design",
+            CreatedAt = now,
+            UpdatedAt = now
+        };
+
+        await db.InsertAsync(deck);
+
+        var cards = new List<Card>
+        {
+            
+        };
+        await db.InsertAllAsync(cards);
+    }
+    
     public static async Task EnsureSoftwareEngineerDeckAsync(SQLiteAsyncConnection db)
     {
         var existing = await db.Table<Deck>()
