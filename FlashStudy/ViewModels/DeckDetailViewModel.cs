@@ -49,7 +49,10 @@ public partial class DeckDetailViewModel : ObservableObject
 
     [RelayCommand]
     public Task AddCardAsync()
-        => Shell.Current.GoToAsync($"{nameof(EditCardPage)}?deckId={DeckId}");
+    {
+        DeckCount++;
+        return Shell.Current.GoToAsync($"{nameof(EditCardPage)}?deckId={DeckId}");
+    }        
 
     [RelayCommand]
     public Task EditCardAsync(Card? card)
@@ -69,6 +72,7 @@ public partial class DeckDetailViewModel : ObservableObject
         var ok = await Shell.Current.DisplayAlertAsync("Delete card?", "Delete this card?", "Delete", "Cancel");
         if (!ok) return;
 
+        DeckCount--;
         await _cards.DeleteAsync(card);
         await LoadAsync();
     }

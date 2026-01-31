@@ -14,6 +14,9 @@ public partial class DeckListViewModel : ObservableObject
     public ObservableCollection<Deck> Items { get; } = new();
 
     [ObservableProperty]
+    public partial int DeckCount { get; set; } = default;
+
+    [ObservableProperty]
     public partial string NewDeckName { get; set; } = "";
 
     public DeckListViewModel(DeckRepository decks)
