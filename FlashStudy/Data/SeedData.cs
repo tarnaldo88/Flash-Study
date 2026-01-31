@@ -8,7 +8,7 @@ public static class SeedData
     public static async Task EnsureGoDeckAsync(SQLiteAsyncConnection db)
     {
         var existing = await db.Table<Deck>()
-            .Where(d => d.Name == "System Design")
+            .Where(d => d.Name == "Golang")
             .FirstOrDefaultAsync();
 
         if (existing is not null)
@@ -19,7 +19,7 @@ public static class SeedData
         var now = DateTime.UtcNow;
         var deck = new Deck
         {
-            Name = "System Design",
+            Name = "Golang",
             CreatedAt = now,
             UpdatedAt = now
         };
