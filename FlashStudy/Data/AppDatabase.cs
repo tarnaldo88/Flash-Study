@@ -19,6 +19,7 @@ namespace FlashStudy.Data
             await SeedData.EnsureSystemDesignDeckAsync(_db);
             await SeedData.EnsureSoftwareEngineerDeckAsync(_db);
             await SeedData.EnsureCSharpDeckAsync(_db);
+            await SeedData.EnsureGoDeckAsync(_db);
         }
 
         public SQLiteAsyncConnection Connection => _db;
