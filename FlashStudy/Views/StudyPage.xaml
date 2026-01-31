@@ -23,8 +23,13 @@
             </HorizontalStackLayout>
         </Grid>
 
-        <Frame Padding="36">
-            <Label Text="{Binding DisplayText}" FontSize="20" />
+        <Frame Padding="32" HeightRequest="260" HorizontalOptions="Fill">
+            <Label Text="{Binding DisplayText}"
+                   FontSize="20"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"
+                   HorizontalOptions="Fill"
+                   VerticalOptions="Fill" />
         </Frame>
 
         <Button Text="Tap to Flip" Command="{Binding FlipCommand}" />
