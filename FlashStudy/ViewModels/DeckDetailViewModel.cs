@@ -44,8 +44,7 @@ public partial class DeckDetailViewModel : ObservableObject
         var list = await _cards.GetByDeckIdAsync(DeckId);
         foreach (var c in list) Cards.Add(c);
 
-        if(Deck != null) 
-            Deck.Count = Cards.Count;
+        DeckCount = Cards.Count;
     }
 
     [RelayCommand]

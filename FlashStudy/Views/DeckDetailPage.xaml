@@ -13,8 +13,8 @@
                    FontAttributes="Bold"
                    HorizontalOptions="Center"
                    HorizontalTextAlignment="Center" />
-            <Label Text="{Binding Deck.Count} TESTsS"
-                   FontSize="24"
+            <Label Text="{Binding DeckCount, StringFormat='Questions: {0}'}"
+                   FontSize="16"
                    FontAttributes="Bold"
                    HorizontalOptions="Center" />
             <HorizontalStackLayout Grid.Column="2" Spacing="6" HorizontalOptions="End">
