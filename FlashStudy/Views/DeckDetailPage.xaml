@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="{Binding Deck.Name}">
 
-    <VerticalStackLayout Padding="16" Spacing="12">
+    <Grid Padding="16" RowDefinitions="Auto,Auto,*" RowSpacing="12">
         <Grid ColumnDefinitions="*,Auto,*">
             <Label Grid.Column="1"
                    Text="{Binding Deck.Name}"
@@ -13,7 +13,7 @@
                    FontAttributes="Bold"
                    HorizontalOptions="Center"
                    HorizontalTextAlignment="Center" />
-            <Label Text="{Binding Deck.Count} TESTS"
+            <Label Text="{Binding Deck.Count} TESTsS"
                    FontSize="24"
                    FontAttributes="Bold"
                    HorizontalOptions="Center" />
@@ -27,12 +27,12 @@
             </HorizontalStackLayout>
         </Grid>
 
-        <HorizontalStackLayout Spacing="8">
+        <HorizontalStackLayout Grid.Row="1" Spacing="8">
             <Button Text="Add Card" Command="{Binding AddCardCommand}" />
             <Button Text="Study" Command="{Binding StudyCommand}" />
         </HorizontalStackLayout>
 
-        <CollectionView ItemsSource="{Binding Cards}">
+        <CollectionView Grid.Row="2" ItemsSource="{Binding Cards}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid ColumnDefinitions="*,Auto" Padding="8">
@@ -50,5 +50,5 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>
