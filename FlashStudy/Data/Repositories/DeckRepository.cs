@@ -5,16 +5,25 @@ namespace FlashStudy.Data.Repositories;
 
 public sealed class DeckRepository
 {
+    private readonly AppDatabase _database;
     private readonly SQLiteAsyncConnection _db;   
 
-    public DeckRepository(AppDatabase database) => _db = database.Connection;   
+    public DeckRepository(AppDatabase database)
+    {
+        _database = database;
+        _db = database.Connection;
+    }   
         
 
-    public Task<List<Deck>> GetAllAsync()
-        => _db.Table<Deck>().OrderByDescending(d => d.UpdatedAt).ToListAsync();
+    public async Task<List<Deck>> GetAllAsync()
+    {
+        await _database.InitAsync();
+        return await _db.Table<Deck>().OrderByDescending(d => d.UpdatedAt).ToListAsync();
+    }
 
     public async Task<Deck?> GetByIdAsync(int id)
     {
+        await _database.InitAsync();
         var deck =  await _db.Table<Deck>().Where(d => d.Id == id).FirstOrDefaultAsync();
         return deck;
     }
@@ -22,6 +31,7 @@ public sealed class DeckRepository
 
     public async Task<int> CreateAsync(string name)
     {
+        await _database.InitAsync();
         var deck = new Deck
         {
             Name = name.Trim(),
@@ -33,14 +43,22 @@ public sealed class DeckRepository
         return deck.Id;
     }
 
-    public Task UpdateAsync(Deck deck)
+    public async Task UpdateAsync(Deck deck)
     {
+        await _database.InitAsync();
         deck.UpdatedAt = DateTime.UtcNow;
-        return _db.UpdateAsync(deck);
+        await _db.UpdateAsync(deck);
     }
 
-    public async Task DeleteAsync(Deck deck) => await _db.DeleteAsync(deck);        
+    public async Task DeleteAsync(Deck deck)
+    {
+        await _database.InitAsync();
+        await _db.DeleteAsync(deck);
+    }        
 
-    public Task DeleteByIdAsync(int id)
-        => _db.DeleteAsync<Deck>(id);
+    public async Task DeleteByIdAsync(int id)
+    {
+        await _database.InitAsync();
+        await _db.DeleteAsync<Deck>(id);
+    }
 }

@@ -29,44 +29,75 @@ public partial class DeckListViewModel : ObservableObject
     [RelayCommand]
     public async Task LoadAsync()
     {
-        Items.Clear();
-        var all = await _decks.GetAllAsync();
-        foreach (var d in all)
+        try
         {
-            d.Count = await _cards.CountByDeckIdAsync(d.Id);
-            Items.Add(d);
+            Items.Clear();
+            var all = await _decks.GetAllAsync();
+            foreach (var d in all)
+            {
+                d.Count = await _cards.CountByDeckIdAsync(d.Id);
+                Items.Add(d);
+            }
+        }
+        catch (Exception ex)
+        {
+            await ShowErrorAsync("Load decks failed", ex);
         }
     }
 
     [RelayCommand]
     public async Task AddDeckAsync()
     {
-        var name = (NewDeckName ?? "").Trim();
-        if (string.IsNullOrWhiteSpace(name))
-            return;
+        try
+        {
+            var name = (NewDeckName ?? "").Trim();
+            if (string.IsNullOrWhiteSpace(name))
+                return;
 
-        await _decks.CreateAsync(name);
-        NewDeckName = "";
-        await LoadAsync();
+            await _decks.CreateAsync(name);
+            NewDeckName = "";
+            await LoadAsync();
+        }
+        catch (Exception ex)
+        {
+            await ShowErrorAsync("Add deck failed", ex);
+        }
     }
 
     [RelayCommand]
     public async Task OpenDeckAsync(Deck? deck)
     {
-        if (deck is null) return;
+        try
+        {
+            if (deck is null) return;
 
-        await Shell.Current.GoToAsync($"{nameof(DeckDetailPage)}?deckId={deck.Id}");
+            await Shell.Current.GoToAsync($"{nameof(DeckDetailPage)}?deckId={deck.Id}");
+        }
+        catch (Exception ex)
+        {
+            await ShowErrorAsync("Open deck failed", ex);
+        }
     }
 
     [RelayCommand]
     public async Task DeleteDeckAsync(Deck? deck)
     {
-        if (deck is null) return;
+        try
+        {
+            if (deck is null) return;
 
-        var ok = await Shell.Current.DisplayAlertAsync("Delete deck?", $"Delete '{deck.Name}'?", "Delete", "Cancel");
-        if (!ok) return;
+            var ok = await Shell.Current.DisplayAlertAsync("Delete deck?", $"Delete '{deck.Name}'?", "Delete", "Cancel");
+            if (!ok) return;
 
-        await _decks.DeleteAsync(deck);
-        await LoadAsync();
+            await _decks.DeleteAsync(deck);
+            await LoadAsync();
+        }
+        catch (Exception ex)
+        {
+            await ShowErrorAsync("Delete deck failed", ex);
+        }
     }
+
+    private static Task ShowErrorAsync(string title, Exception ex)
+        => Shell.Current.DisplayAlertAsync(title, ex.Message, "OK");
 }

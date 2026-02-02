@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using FlashStudy.Data;
+using SQLitePCL;
 using FlashStudy.Data.Repositories;
 using FlashStudy.ViewModels;
 using FlashStudy.Views;
@@ -22,6 +23,9 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
+		// Initialize SQLite native provider before any connections are created.
+		Batteries_V2.Init();
+
 		// DB path
         var dbPath = Path.Combine(FileSystem.AppDataDirectory, "flashcards.db3");
 

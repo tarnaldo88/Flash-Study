@@ -6,13 +6,25 @@ namespace FlashStudy.Data
     public sealed class AppDatabase
     {
         private readonly SQLiteAsyncConnection _db;
+        private Task? _initTask;
+        private readonly object _initLock = new();
 
         public AppDatabase(string dbPath)
         {
             _db = new SQLiteAsyncConnection(dbPath);
         }
 
-        public async Task InitAsync()
+        public Task InitAsync()
+        {
+            lock (_initLock)
+            {
+                _initTask ??= InitInternalAsync();
+            }
+
+            return _initTask;
+        }
+
+        private async Task InitInternalAsync()
         {
             await _db.CreateTableAsync<Deck>();
             await _db.CreateTableAsync<Card>();

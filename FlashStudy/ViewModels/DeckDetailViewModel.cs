@@ -12,6 +12,7 @@ public partial class DeckDetailViewModel : ObservableObject
 {
     private readonly DeckRepository _decks;
     private readonly CardRepository _cards;
+    private List<Card> _allCards = new();
 
     [ObservableProperty]
     public partial int DeckCount { get; set; } = default;
@@ -21,6 +22,9 @@ public partial class DeckDetailViewModel : ObservableObject
 
     [ObservableProperty]
     public partial Deck? Deck { get; set; }
+
+    [ObservableProperty]
+    public partial string SearchText { get; set; } = "";
 
     public ObservableCollection<Card> Cards { get; } = new();
 
@@ -40,11 +44,9 @@ public partial class DeckDetailViewModel : ObservableObject
     {
         Deck = await _decks.GetByIdAsync(DeckId);
 
-        Cards.Clear();
-        var list = await _cards.GetByDeckIdAsync(DeckId);
-        foreach (var c in list) Cards.Add(c);
-
-        DeckCount = Cards.Count;
+        _allCards = await _cards.GetByDeckIdAsync(DeckId);
+        DeckCount = _allCards.Count;
+        ApplyFilter();
     }
 
     [RelayCommand]
@@ -98,5 +100,30 @@ public partial class DeckDetailViewModel : ObservableObject
         await _decks.DeleteAsync(deck);
 
         await LoadAsync();
+    }
+
+    partial void OnSearchTextChanged(string value)
+    {
+        ApplyFilter();
+    }
+
+    private void ApplyFilter()
+    {
+        Cards.Clear();
+
+        var query = SearchText?.Trim();
+        IEnumerable<Card> filtered = _allCards;
+
+        if (!string.IsNullOrWhiteSpace(query))
+        {
+            filtered = _allCards.Where(card =>
+                (!string.IsNullOrWhiteSpace(card.Front) && card.Front.Contains(query, StringComparison.OrdinalIgnoreCase)) ||
+                (!string.IsNullOrWhiteSpace(card.Back) && card.Back.Contains(query, StringComparison.OrdinalIgnoreCase)));
+        }
+
+        foreach (var card in filtered)
+        {
+            Cards.Add(card);
+        }
     }
 }

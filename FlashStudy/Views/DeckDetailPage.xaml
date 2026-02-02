@@ -8,7 +8,7 @@
     x:DataType="viewmodels:DeckDetailViewModel"
     Title="{Binding Deck.Name}">
 
-    <Grid Padding="16" RowDefinitions="Auto,Auto,*" RowSpacing="12">
+    <Grid Padding="16" RowDefinitions="Auto,Auto,Auto,*" RowSpacing="12">
         <Grid ColumnDefinitions="*,Auto,*">
             <Label Grid.Column="1"
                    Text="{Binding Deck.Name}"
@@ -35,7 +35,12 @@
             <Button Text="Study" Command="{Binding StudyCommand}" />
         </HorizontalStackLayout>
 
-        <CollectionView Grid.Row="2" ItemsSource="{Binding Cards}">
+        <Entry Grid.Row="2"
+               Placeholder="Search questions"
+               Text="{Binding SearchText}"
+               ClearButtonVisibility="WhileEditing" />
+
+        <CollectionView Grid.Row="3" ItemsSource="{Binding Cards}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Card">
                     <Grid ColumnDefinitions="*,Auto" Padding="8">

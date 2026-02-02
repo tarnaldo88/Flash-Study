@@ -5,19 +5,30 @@ namespace FlashStudy.Data.Repositories;
 
 public sealed class CardRepository
 {
+    private readonly AppDatabase _database;
     private readonly SQLiteAsyncConnection _db;
 
     public CardRepository(AppDatabase database)
-        => _db = database.Connection;
+    {
+        _database = database;
+        _db = database.Connection;
+    }
 
-    public Task<List<Card>> GetByDeckIdAsync(int deckId)
-        => _db.Table<Card>().Where(c => c.DeckId == deckId).OrderBy(c => c.Id).ToListAsync();
+    public async Task<List<Card>> GetByDeckIdAsync(int deckId)
+    {
+        await _database.InitAsync();
+        return await _db.Table<Card>().Where(c => c.DeckId == deckId).OrderBy(c => c.Id).ToListAsync();
+    }
 
-    public Task<int> CountByDeckIdAsync(int deckId)
-        => _db.Table<Card>().Where(c => c.DeckId == deckId).CountAsync();
+    public async Task<int> CountByDeckIdAsync(int deckId)
+    {
+        await _database.InitAsync();
+        return await _db.Table<Card>().Where(c => c.DeckId == deckId).CountAsync();
+    }
 
     public async Task<Card?> GetByIdAsync(int id)
     {
+        await _database.InitAsync();
         var card = await _db.Table<Card>()
             .Where(c => c.Id == id)
             .FirstOrDefaultAsync()
@@ -28,6 +39,7 @@ public sealed class CardRepository
 
     public async Task<int> CreateAsync(int deckId, string front, string back)
     {
+        await _database.InitAsync();
         var card = new Card
         {
             DeckId = deckId,
@@ -41,18 +53,28 @@ public sealed class CardRepository
         return card.Id;
     }
 
-    public Task UpdateAsync(Card card)
+    public async Task UpdateAsync(Card card)
     {
+        await _database.InitAsync();
         card.UpdatedAt = DateTime.UtcNow;
-        return _db.UpdateAsync(card);
+        await _db.UpdateAsync(card);
     }
 
-    public Task DeleteAsync(Card card)
-        => _db.DeleteAsync(card);
+    public async Task DeleteAsync(Card card)
+    {
+        await _database.InitAsync();
+        await _db.DeleteAsync(card);
+    }
 
-    public Task DeleteByIdAsync(int id)
-        => _db.DeleteAsync<Card>(id);
+    public async Task DeleteByIdAsync(int id)
+    {
+        await _database.InitAsync();
+        await _db.DeleteAsync<Card>(id);
+    }
 
-    public Task<int> DeleteByDeckIdAsync(int deckId)
-        => _db.ExecuteAsync("DELETE FROM Cards WHERE DeckId = ?", deckId);
+    public async Task<int> DeleteByDeckIdAsync(int deckId)
+    {
+        await _database.InitAsync();
+        return await _db.ExecuteAsync("DELETE FROM Cards WHERE DeckId = ?", deckId);
+    }
 }
