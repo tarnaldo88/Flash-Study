@@ -42,6 +42,7 @@ public partial class StudyViewModel : ObservableObject
         DeckName = deck?.Name ?? "";
 
         _list = await _cards.GetByDeckIdAsync(DeckId);
+        RandomizeCards();
         Index = 0;
         IsFlipped = false;
         OnPropertyChanged(nameof(DisplayText));
@@ -71,5 +72,16 @@ public partial class StudyViewModel : ObservableObject
         if (Index > 0) Index--;
         IsFlipped = false;
         OnPropertyChanged(nameof(DisplayText));
+    }
+
+    private void RandomizeCards()
+    {
+        var rng = Random.Shared;
+
+        for(int i = _list.Count - 1; i > 0; i--)
+        {
+            int j = rng.Next(0,i + 1);
+            (_list[i], _list[j]) = (_list[j], _list[i]);
+        }
     }
 }
