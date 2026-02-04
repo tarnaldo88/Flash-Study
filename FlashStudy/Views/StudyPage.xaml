@@ -25,9 +25,14 @@
             </HorizontalStackLayout>
         </Grid>
 
-        <Frame Padding="32" HeightRequest="260" HorizontalOptions="Fill">
+        <Frame Padding="32"
+               HeightRequest="260"
+               HorizontalOptions="Fill"
+               BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}"
+               BorderColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}">
             <Label Text="{Binding DisplayText}"
                    FontSize="20"
+                   TextColor="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource White}}"
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center"
                    HorizontalOptions="Fill"
