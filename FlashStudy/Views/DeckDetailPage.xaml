@@ -40,7 +40,9 @@
                Text="{Binding SearchText}"
                ClearButtonVisibility="WhileEditing" />
 
-        <CollectionView Grid.Row="3" ItemsSource="{Binding Cards}">
+        <CollectionView Grid.Row="3"
+                        ItemsSource="{Binding Cards}"
+                        SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Card">
                     <Grid ColumnDefinitions="*,Auto" Padding="8">
