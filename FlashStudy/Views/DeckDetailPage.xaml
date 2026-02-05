@@ -5,10 +5,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:models="clr-namespace:FlashStudy.Models"
     xmlns:viewmodels="clr-namespace:FlashStudy.ViewModels"
+    x:Name="PageRoot"
     x:DataType="viewmodels:DeckDetailViewModel"
     Title="{Binding Deck.Name}">
 
-    <Grid Padding="16" RowDefinitions="Auto,Auto,*" RowSpacing="12">
+    <Grid Padding="16" RowDefinitions="Auto,Auto,Auto,*" RowSpacing="12">
         <Grid ColumnDefinitions="*,Auto,*">
             <Label Grid.Column="1"
                    Text="{Binding Deck.Name}"
@@ -32,27 +33,29 @@
 
         <HorizontalStackLayout Grid.Row="1" Spacing="8">
             <Button Text="Add Card" Command="{Binding AddCardCommand}" />
-            <Button Text="Study" Command="{Binding StudyCommand}" />
+            <Button Text="Study" Command="{Binding StudyCommand}" />            
         </HorizontalStackLayout>
-
-        <CollectionView Grid.Row="2"
+        <Entry Grid.Row="2"
+            Placeholder="Search questions"
+            Text="{Binding SearchText}"
+            ClearButtonVisibility="WhileEditing"
+            ZIndex="0" />
+        <CollectionView Grid.Row="5"
                         ItemsSource="{Binding Cards}"
-                        SelectionMode="None">
-            <CollectionView.Header>
-                <Entry Placeholder="Search questions"
-                       Text="{Binding SearchText}"
-                       ClearButtonVisibility="WhileEditing" />
-            </CollectionView.Header>
+                        SelectionMode="None"
+                        VerticalOptions="FillAndExpand"
+                        VerticalScrollBarVisibility="Always"
+                        ZIndex="1">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Card">
                     <Grid ColumnDefinitions="*,Auto" Padding="8">
                         <Label Text="{Binding Front}" LineBreakMode="TailTruncation" />
                         <HorizontalStackLayout Grid.Column="1" Spacing="8">
                             <Button Text="Edit"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditCardCommand}"
+                                    Command="{Binding BindingContext.EditCardCommand, Source={x:Reference PageRoot}}"
                                     CommandParameter="{Binding .}" />
                             <Button Text="Delete"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteCardCommand}"
+                                    Command="{Binding BindingContext.DeleteCardCommand, Source={x:Reference PageRoot}}"
                                     CommandParameter="{Binding .}" />
                         </HorizontalStackLayout>
                     </Grid>
